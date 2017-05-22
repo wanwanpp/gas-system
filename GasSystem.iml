@@ -23,5 +23,6 @@
     <orderEntry type="library" name="Maven: org.fusesource.hawtdispatch:hawtdispatch:1.9" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.hawtbuf:hawtbuf:1.9" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.3.1" level="project" />
   </component>
 </module>
