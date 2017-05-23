@@ -40,7 +40,7 @@ public class Publisher {
         int count = 0;
         long start = System.currentTimeMillis();
         byte[] dataBytes = buildGasData.produceGasData();
-        System.out.println(dataBytes.length);
+//        System.out.println(dataBytes.length);
 
         queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
 
