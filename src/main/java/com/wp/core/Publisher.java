@@ -44,7 +44,8 @@ public class Publisher {
 
         for (int i = 0; i < 100; i++) {
             queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
-            Thread.sleep(500);
+            Thread.sleep(100);
+            count++;
         }
 
         System.out.println("count is " + count);

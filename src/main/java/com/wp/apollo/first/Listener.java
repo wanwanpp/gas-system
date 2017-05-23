@@ -31,7 +31,7 @@ class Listener {
         String password = env("APOLLO_PASSWORD", "password");
 //        String host = env("APOLLO_HOST", "localhost");
 //        String host = env("APOLLO_HOST", "172.23.253.30");
-        String host = env("APOLLO_HOST", "123.207.124.213");
+        String host = env("APOLLO_HOST", "localhost");
         int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
         final String destination = arg(args, 0, "/topic/event");
 
