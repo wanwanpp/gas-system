@@ -18,7 +18,7 @@ public class BuildGasData {
         //构造数据容器
         GasMsg.GasDataBox.Builder boxBuilder = GasMsg.GasDataBox.newBuilder();
         GasMsg.GasData.Builder gasBuilder = null;
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000; i++) {
             gasBuilder = GasMsg.GasData.newBuilder();
             gasBuilder.setId(i);
             gasBuilder.setPressure(random.nextDouble() * 100);

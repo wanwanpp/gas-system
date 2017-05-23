@@ -26,12 +26,11 @@ import org.fusesource.mqtt.client.*;
  * Uses an callback based interface to MQTT.  Callback based interfaces
  * are harder to use but are slightly more efficient.
  */
-class Listener {
+public class Listener {
 
     public static void main(String[] args) throws Exception {
 
         final BuildGasData buildGasData = new BuildGasData();
-
 
         String user = "admin";
         String password = "password";
@@ -63,10 +62,7 @@ class Listener {
             }
 
             public void onPublish(UTF8Buffer topic, Buffer msg, Runnable ack) {
-
-//                byte[] data = msg.data;
                 byte[] data = msg.toByteArray();
-                System.out.println(data.length);
                 GasMsg.GasDataBox gasDataBox = buildGasData.consume(data);
                 System.out.println(gasDataBox.getGasDataList().size());
 //

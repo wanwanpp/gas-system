@@ -42,29 +42,16 @@ public class Publisher {
         byte[] dataBytes = buildGasData.produceGasData();
         System.out.println(dataBytes.length);
 
-        queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
-
-//        for (int i = 1; i <= 100000; i++) {
-//
-//            queue.add(connection.publish(destination, buildGasData.produceGasData(), QoS.AT_LEAST_ONCE, false));
-//
-//            // Eventually we start waiting for old publish futures to complete
-//            // so that we don't create a large in memory buffer of outgoing message.s
-//            if (queue.size() >= 10000) {
-//                queue.removeFirst().await();
-//            }
-//            count++;
-//        }
+        for (int i = 0; i < 100; i++) {
+            queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
+            Thread.sleep(500);
+        }
 
         System.out.println("count is " + count);
-//        queue.add(connection.publish(topic, new AsciiBuffer("SHUTDOWN"), QoS.EXACTLY_ONCE, true));
-//        while (!queue.isEmpty()) {
-//            queue.removeFirst().await();
-//        }
 
         connection.disconnect().await();
         System.out.println("used :" + (System.currentTimeMillis() - start));
         Thread.sleep(600000);
-//        System.exit(0);
+
     }
 }
