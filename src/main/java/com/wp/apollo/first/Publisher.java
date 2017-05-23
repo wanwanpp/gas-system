@@ -26,22 +26,16 @@ import org.fusesource.mqtt.client.QoS;
 
 import java.util.LinkedList;
 
-/**
- * Uses a Future based API to MQTT.
- */
 class Publisher {
-
     public static void main(String[] args) throws Exception {
 
-        String user = env("APOLLO_USER", "admin");
-        String password = env("APOLLO_PASSWORD", "password");
-//        String host = env("APOLLO_HOST", "localhost");
-//        String host = env("APOLLO_HOST", "172.23.253.30");
-        String host = env("APOLLO_HOST", "123.207.124.213");
-        int port = Integer.parseInt(env("APOLLO_PORT", "61613"));
+        String user = "admin";
+        String password = "password";
+        String host ="localhost";
+        int port = 61613;
 
         //默认目的地为/topic/event
-        final String destination = arg(args, 0, "/topic/event");
+        final String destination = "/topic/event";
         String body = "I=1,P=30,T=30,S=40,W=39,A=50";
         Buffer msg = new AsciiBuffer(body);
 
@@ -60,9 +54,7 @@ class Publisher {
         long start = System.currentTimeMillis();
         for (int i = 1; i <= 100000; i++) {
 
-            // Send the publish without waiting for it to complete. This allows us
-            // to send multiple message without blocking..
-            queue.add(connection.publish(topic, msg, QoS.AT_LEAST_ONCE, true));
+            queue.add(connection.publish(topic, msg, QoS.AT_LEAST_ONCE, false));
 
             // Eventually we start waiting for old publish futures to complete
             // so that we don't create a large in memory buffer of outgoing message.s
@@ -78,25 +70,10 @@ class Publisher {
 //            queue.removeFirst().await();
 //        }
 
-
         connection.disconnect().await();
         System.out.println("used :" + (System.currentTimeMillis() - start));
         Thread.sleep(600000);
 //        System.exit(0);
-    }
-
-    private static String env(String key, String defaultValue) {
-        String rc = System.getenv(key);
-        if (rc == null)
-            return defaultValue;
-        return rc;
-    }
-
-    private static String arg(String[] args, int index, String defaultValue) {
-        if (index < args.length)
-            return args[index];
-        else
-            return defaultValue;
     }
 
 }

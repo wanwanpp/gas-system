@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by 王萍 on 2017/5/22 0022.
@@ -15,17 +16,20 @@ public class GasMsgTest {
     @Test
     public void testEnCode() throws IOException {
 
+        //随机数
+        Random random = new Random();
+
         //构造数据容器
         GasMsg.GasDataBox.Builder boxBuilder = GasMsg.GasDataBox.newBuilder();
         GasMsg.GasData.Builder gasBuilder = null;
         for (int i = 0; i < 100000; i++) {
             gasBuilder = GasMsg.GasData.newBuilder();
             gasBuilder.setId(i);
-            gasBuilder.setPressure(i);
-            gasBuilder.setTemper(i);
-            gasBuilder.setSFlow(i);
-            gasBuilder.setWFlow(i);
-            gasBuilder.setAFlow(i);
+            gasBuilder.setPressure(random.nextDouble()*100);
+            gasBuilder.setTemper(random.nextDouble()*100);
+            gasBuilder.setSFlow(random.nextDouble()*100);
+            gasBuilder.setWFlow(random.nextDouble()*100);
+            gasBuilder.setAFlow(random.nextDouble()*100);
             gasBuilder.setTime(System.currentTimeMillis());
             boxBuilder.addGasData(gasBuilder);
         }
@@ -44,7 +48,6 @@ public class GasMsgTest {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         GasMsg.GasDataBox gasDataBox2 = GasMsg.GasDataBox.parseFrom(bis);
 //        System.out.println(gasDataBox2);
-
 
         Iterator<GasMsg.GasData> iterator = gasDataBox2.getGasDataList().iterator();
 //        while (iterator.hasNext()){
