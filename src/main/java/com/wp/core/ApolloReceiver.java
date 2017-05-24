@@ -1,5 +1,6 @@
 package com.wp.core;
 
+import com.wp.influxdb.InfluxTemplate;
 import com.wp.protobuf.BuildGasData;
 import com.wp.protobuf.GasMsg;
 import org.fusesource.hawtbuf.Buffer;
@@ -18,6 +19,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ApolloReceiver {
 
+    private static String tableName = "gas";
+
     final BuildGasData buildGasData = new BuildGasData();
 
     private static final int DEFAULT_NUM_CONSUMERS = 5;
@@ -31,6 +34,8 @@ public class ApolloReceiver {
     private ExecutorService consumersPool;
 
     private static MQTT mqtt = new MQTT();
+
+    private static InfluxTemplate influxTemplate = new InfluxTemplate();
 
     public int getNumConsumers() {
         return numConsumers;
@@ -55,13 +60,14 @@ public class ApolloReceiver {
 
         consumersPool = Executors.newFixedThreadPool(getNumConsumers());
 
-        for (AtomicInteger i = new AtomicInteger(0); i.get() < getNumConsumers(); i.getAndIncrement()) {
+        for (AtomicInteger i = new AtomicInteger(1); i.get() < getNumConsumers(); i.getAndIncrement()) {
             Consumer consumer = new Consumer("consumer " + i);
             consumer.connect();
-            consumersPool.submit(consumer);
+            consumersPool.execute(consumer);
 
+            //这儿需要过一段时间后再创建新的consumer。
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -114,14 +120,7 @@ public class ApolloReceiver {
 
                     connection.subscribe(topics, new Callback<byte[]>() {
                         public void onSuccess(byte[] qoses) {
-
                             System.out.println(name + " : 订阅成功");
-
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
                         }
 
                         public void onFailure(Throwable value) {
@@ -140,9 +139,8 @@ public class ApolloReceiver {
         }
 
         public void run() {
+
             connection.listener(new org.fusesource.mqtt.client.Listener() {
-                long count = 0;
-                long start = System.currentTimeMillis();
 
                 public void onConnected() {
                 }
@@ -156,29 +154,31 @@ public class ApolloReceiver {
                 }
 
                 public void onPublish(UTF8Buffer topic, Buffer msg, Runnable ack) {
-                    byte[] data = msg.toByteArray();
-                    GasMsg.GasDataBox gasDataBox = buildGasData.consume(data);
-                    System.out.println(name + " receive: " + gasDataBox.getGasDataList().size());
 
-//                        disconnect();
+                    byte[] data = msg.toByteArray();
+
+                    GasMsg.GasDataBox gasDataBox = buildGasData.consume(data);
+                    List<GasMsg.GasData> gasDataList = gasDataBox.getGasDataList();
+                    System.out.println(name + " receive: " + gasDataList.size());
+
+                    List<String> toDbList = new ArrayList<String>(100000);
+
+                    String string = "";
+
+                    for (GasMsg.GasData gasData : gasDataList) {
+                        string = tableName +
+                                ",id=" + gasData.getId() + " " +
+                                "pressure="+gasData.getPressure()+"," +
+                                "temper="+gasData.getTemper()+"," +
+                                "sFlow="+gasData.getSFlow()+"," +
+                                "wFlow="+gasData.getWFlow()+"," +
+                                "aFlow="+gasData.getAFlow()+"," +
+                                "stime="+gasData.getTime();//不能写成time，因为是Influxdb占用的字段
+                        toDbList.add(string);
+                    }
+                    influxTemplate.write(toDbList);
                 }
             });
-        }
-
-    }
-
-
-    public static void main(String[] args) throws Exception {
-
-        ApolloReceiver receiver = new ApolloReceiver("admin", "password", "localhost", 61613);
-        receiver.setDestination("/topic/event");
-
-        receiver.start();
-
-        // Wait forever..
-        synchronized (Listener.class) {
-            while (true)
-                Listener.class.wait();
         }
     }
 

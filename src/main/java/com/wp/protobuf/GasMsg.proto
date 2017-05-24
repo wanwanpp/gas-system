@@ -4,19 +4,19 @@ message GasData{
     required int32 id = 1;
 
     // 压力
-    required double pressure = 2;
+    required float pressure = 2;
 
     // 温度
-    required double temper = 3;
+    required float temper = 3;
 
     // 标况流量
-    required double sFlow = 4;
+    required float sFlow = 4;
 
     // 工作流量
-    required double wFlow = 5;
+    required float wFlow = 5;
 
     // 总流量
-    required double aFlow = 6;
+    required float aFlow = 6;
 
     //日期
     required int64 time=7;

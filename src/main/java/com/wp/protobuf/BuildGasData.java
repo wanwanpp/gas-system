@@ -18,14 +18,14 @@ public class BuildGasData {
         //构造数据容器
         GasMsg.GasDataBox.Builder boxBuilder = GasMsg.GasDataBox.newBuilder();
         GasMsg.GasData.Builder gasBuilder = null;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             gasBuilder = GasMsg.GasData.newBuilder();
             gasBuilder.setId(i);
-            gasBuilder.setPressure(random.nextDouble() * 100);
-            gasBuilder.setTemper(random.nextDouble() * 100);
-            gasBuilder.setSFlow(random.nextDouble() * 100);
-            gasBuilder.setWFlow(random.nextDouble() * 100);
-            gasBuilder.setAFlow(random.nextDouble() * 100);
+            gasBuilder.setPressure(random.nextFloat() * 100);
+            gasBuilder.setTemper(random.nextFloat() * 100);
+            gasBuilder.setSFlow(random.nextFloat() * 100);
+            gasBuilder.setWFlow(random.nextFloat() * 100);
+            gasBuilder.setAFlow(random.nextFloat() * 100);
             gasBuilder.setTime(System.currentTimeMillis());
             boxBuilder.addGasData(gasBuilder);
         }

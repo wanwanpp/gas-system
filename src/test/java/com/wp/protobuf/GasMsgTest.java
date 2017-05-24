@@ -25,11 +25,11 @@ public class GasMsgTest {
         for (int i = 0; i < 100000; i++) {
             gasBuilder = GasMsg.GasData.newBuilder();
             gasBuilder.setId(i);
-            gasBuilder.setPressure(random.nextDouble()*100);
-            gasBuilder.setTemper(random.nextDouble()*100);
-            gasBuilder.setSFlow(random.nextDouble()*100);
-            gasBuilder.setWFlow(random.nextDouble()*100);
-            gasBuilder.setAFlow(random.nextDouble()*100);
+            gasBuilder.setPressure(random.nextFloat()*100);
+            gasBuilder.setTemper(random.nextFloat()*100);
+            gasBuilder.setSFlow(random.nextFloat()*100);
+            gasBuilder.setWFlow(random.nextFloat()*100);
+            gasBuilder.setAFlow(random.nextFloat()*100);
             gasBuilder.setTime(System.currentTimeMillis());
             boxBuilder.addGasData(gasBuilder);
         }

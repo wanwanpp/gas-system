@@ -27,9 +27,9 @@ public final class GasMsg {
      */
     int getId();
 
-    // required double pressure = 2;
+    // required float pressure = 2;
     /**
-     * <code>required double pressure = 2;</code>
+     * <code>required float pressure = 2;</code>
      *
      * <pre>
      * 压力
@@ -37,17 +37,17 @@ public final class GasMsg {
      */
     boolean hasPressure();
     /**
-     * <code>required double pressure = 2;</code>
+     * <code>required float pressure = 2;</code>
      *
      * <pre>
      * 压力
      * </pre>
      */
-    double getPressure();
+    float getPressure();
 
-    // required double temper = 3;
+    // required float temper = 3;
     /**
-     * <code>required double temper = 3;</code>
+     * <code>required float temper = 3;</code>
      *
      * <pre>
      * 温度
@@ -55,17 +55,17 @@ public final class GasMsg {
      */
     boolean hasTemper();
     /**
-     * <code>required double temper = 3;</code>
+     * <code>required float temper = 3;</code>
      *
      * <pre>
      * 温度
      * </pre>
      */
-    double getTemper();
+    float getTemper();
 
-    // required double sFlow = 4;
+    // required float sFlow = 4;
     /**
-     * <code>required double sFlow = 4;</code>
+     * <code>required float sFlow = 4;</code>
      *
      * <pre>
      * 标况流量
@@ -73,17 +73,17 @@ public final class GasMsg {
      */
     boolean hasSFlow();
     /**
-     * <code>required double sFlow = 4;</code>
+     * <code>required float sFlow = 4;</code>
      *
      * <pre>
      * 标况流量
      * </pre>
      */
-    double getSFlow();
+    float getSFlow();
 
-    // required double wFlow = 5;
+    // required float wFlow = 5;
     /**
-     * <code>required double wFlow = 5;</code>
+     * <code>required float wFlow = 5;</code>
      *
      * <pre>
      * 工作流量
@@ -91,17 +91,17 @@ public final class GasMsg {
      */
     boolean hasWFlow();
     /**
-     * <code>required double wFlow = 5;</code>
+     * <code>required float wFlow = 5;</code>
      *
      * <pre>
      * 工作流量
      * </pre>
      */
-    double getWFlow();
+    float getWFlow();
 
-    // required double aFlow = 6;
+    // required float aFlow = 6;
     /**
-     * <code>required double aFlow = 6;</code>
+     * <code>required float aFlow = 6;</code>
      *
      * <pre>
      * 总流量
@@ -109,13 +109,13 @@ public final class GasMsg {
      */
     boolean hasAFlow();
     /**
-     * <code>required double aFlow = 6;</code>
+     * <code>required float aFlow = 6;</code>
      *
      * <pre>
      * 总流量
      * </pre>
      */
-    double getAFlow();
+    float getAFlow();
 
     // required int64 time = 7;
     /**
@@ -191,29 +191,29 @@ public final class GasMsg {
               id_ = input.readInt32();
               break;
             }
-            case 17: {
+            case 21: {
               bitField0_ |= 0x00000002;
-              pressure_ = input.readDouble();
+              pressure_ = input.readFloat();
               break;
             }
-            case 25: {
+            case 29: {
               bitField0_ |= 0x00000004;
-              temper_ = input.readDouble();
+              temper_ = input.readFloat();
               break;
             }
-            case 33: {
+            case 37: {
               bitField0_ |= 0x00000008;
-              sFlow_ = input.readDouble();
+              sFlow_ = input.readFloat();
               break;
             }
-            case 41: {
+            case 45: {
               bitField0_ |= 0x00000010;
-              wFlow_ = input.readDouble();
+              wFlow_ = input.readFloat();
               break;
             }
-            case 49: {
+            case 53: {
               bitField0_ |= 0x00000020;
-              aFlow_ = input.readDouble();
+              aFlow_ = input.readFloat();
               break;
             }
             case 56: {
@@ -285,11 +285,11 @@ public final class GasMsg {
       return id_;
     }
 
-    // required double pressure = 2;
+    // required float pressure = 2;
     public static final int PRESSURE_FIELD_NUMBER = 2;
-    private double pressure_;
+    private float pressure_;
     /**
-     * <code>required double pressure = 2;</code>
+     * <code>required float pressure = 2;</code>
      *
      * <pre>
      * 压力
@@ -299,21 +299,21 @@ public final class GasMsg {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required double pressure = 2;</code>
+     * <code>required float pressure = 2;</code>
      *
      * <pre>
      * 压力
      * </pre>
      */
-    public double getPressure() {
+    public float getPressure() {
       return pressure_;
     }
 
-    // required double temper = 3;
+    // required float temper = 3;
     public static final int TEMPER_FIELD_NUMBER = 3;
-    private double temper_;
+    private float temper_;
     /**
-     * <code>required double temper = 3;</code>
+     * <code>required float temper = 3;</code>
      *
      * <pre>
      * 温度
@@ -323,21 +323,21 @@ public final class GasMsg {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required double temper = 3;</code>
+     * <code>required float temper = 3;</code>
      *
      * <pre>
      * 温度
      * </pre>
      */
-    public double getTemper() {
+    public float getTemper() {
       return temper_;
     }
 
-    // required double sFlow = 4;
+    // required float sFlow = 4;
     public static final int SFLOW_FIELD_NUMBER = 4;
-    private double sFlow_;
+    private float sFlow_;
     /**
-     * <code>required double sFlow = 4;</code>
+     * <code>required float sFlow = 4;</code>
      *
      * <pre>
      * 标况流量
@@ -347,21 +347,21 @@ public final class GasMsg {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required double sFlow = 4;</code>
+     * <code>required float sFlow = 4;</code>
      *
      * <pre>
      * 标况流量
      * </pre>
      */
-    public double getSFlow() {
+    public float getSFlow() {
       return sFlow_;
     }
 
-    // required double wFlow = 5;
+    // required float wFlow = 5;
     public static final int WFLOW_FIELD_NUMBER = 5;
-    private double wFlow_;
+    private float wFlow_;
     /**
-     * <code>required double wFlow = 5;</code>
+     * <code>required float wFlow = 5;</code>
      *
      * <pre>
      * 工作流量
@@ -371,21 +371,21 @@ public final class GasMsg {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required double wFlow = 5;</code>
+     * <code>required float wFlow = 5;</code>
      *
      * <pre>
      * 工作流量
      * </pre>
      */
-    public double getWFlow() {
+    public float getWFlow() {
       return wFlow_;
     }
 
-    // required double aFlow = 6;
+    // required float aFlow = 6;
     public static final int AFLOW_FIELD_NUMBER = 6;
-    private double aFlow_;
+    private float aFlow_;
     /**
-     * <code>required double aFlow = 6;</code>
+     * <code>required float aFlow = 6;</code>
      *
      * <pre>
      * 总流量
@@ -395,13 +395,13 @@ public final class GasMsg {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>required double aFlow = 6;</code>
+     * <code>required float aFlow = 6;</code>
      *
      * <pre>
      * 总流量
      * </pre>
      */
-    public double getAFlow() {
+    public float getAFlow() {
       return aFlow_;
     }
 
@@ -431,11 +431,11 @@ public final class GasMsg {
 
     private void initFields() {
       id_ = 0;
-      pressure_ = 0D;
-      temper_ = 0D;
-      sFlow_ = 0D;
-      wFlow_ = 0D;
-      aFlow_ = 0D;
+      pressure_ = 0F;
+      temper_ = 0F;
+      sFlow_ = 0F;
+      wFlow_ = 0F;
+      aFlow_ = 0F;
       time_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
@@ -482,19 +482,19 @@ public final class GasMsg {
         output.writeInt32(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeDouble(2, pressure_);
+        output.writeFloat(2, pressure_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeDouble(3, temper_);
+        output.writeFloat(3, temper_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeDouble(4, sFlow_);
+        output.writeFloat(4, sFlow_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeDouble(5, wFlow_);
+        output.writeFloat(5, wFlow_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeDouble(6, aFlow_);
+        output.writeFloat(6, aFlow_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         output.writeInt64(7, time_);
@@ -514,23 +514,23 @@ public final class GasMsg {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, pressure_);
+          .computeFloatSize(2, pressure_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, temper_);
+          .computeFloatSize(3, temper_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, sFlow_);
+          .computeFloatSize(4, sFlow_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, wFlow_);
+          .computeFloatSize(5, wFlow_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(6, aFlow_);
+          .computeFloatSize(6, aFlow_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
@@ -654,15 +654,15 @@ public final class GasMsg {
         super.clear();
         id_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        pressure_ = 0D;
+        pressure_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000002);
-        temper_ = 0D;
+        temper_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000004);
-        sFlow_ = 0D;
+        sFlow_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
-        wFlow_ = 0D;
+        wFlow_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000010);
-        aFlow_ = 0D;
+        aFlow_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000020);
         time_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
@@ -863,10 +863,10 @@ public final class GasMsg {
         return this;
       }
 
-      // required double pressure = 2;
-      private double pressure_ ;
+      // required float pressure = 2;
+      private float pressure_ ;
       /**
-       * <code>required double pressure = 2;</code>
+       * <code>required float pressure = 2;</code>
        *
        * <pre>
        * 压力
@@ -876,30 +876,30 @@ public final class GasMsg {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required double pressure = 2;</code>
+       * <code>required float pressure = 2;</code>
        *
        * <pre>
        * 压力
        * </pre>
        */
-      public double getPressure() {
+      public float getPressure() {
         return pressure_;
       }
       /**
-       * <code>required double pressure = 2;</code>
+       * <code>required float pressure = 2;</code>
        *
        * <pre>
        * 压力
        * </pre>
        */
-      public Builder setPressure(double value) {
+      public Builder setPressure(float value) {
         bitField0_ |= 0x00000002;
         pressure_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double pressure = 2;</code>
+       * <code>required float pressure = 2;</code>
        *
        * <pre>
        * 压力
@@ -907,15 +907,15 @@ public final class GasMsg {
        */
       public Builder clearPressure() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        pressure_ = 0D;
+        pressure_ = 0F;
         onChanged();
         return this;
       }
 
-      // required double temper = 3;
-      private double temper_ ;
+      // required float temper = 3;
+      private float temper_ ;
       /**
-       * <code>required double temper = 3;</code>
+       * <code>required float temper = 3;</code>
        *
        * <pre>
        * 温度
@@ -925,30 +925,30 @@ public final class GasMsg {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required double temper = 3;</code>
+       * <code>required float temper = 3;</code>
        *
        * <pre>
        * 温度
        * </pre>
        */
-      public double getTemper() {
+      public float getTemper() {
         return temper_;
       }
       /**
-       * <code>required double temper = 3;</code>
+       * <code>required float temper = 3;</code>
        *
        * <pre>
        * 温度
        * </pre>
        */
-      public Builder setTemper(double value) {
+      public Builder setTemper(float value) {
         bitField0_ |= 0x00000004;
         temper_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double temper = 3;</code>
+       * <code>required float temper = 3;</code>
        *
        * <pre>
        * 温度
@@ -956,15 +956,15 @@ public final class GasMsg {
        */
       public Builder clearTemper() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        temper_ = 0D;
+        temper_ = 0F;
         onChanged();
         return this;
       }
 
-      // required double sFlow = 4;
-      private double sFlow_ ;
+      // required float sFlow = 4;
+      private float sFlow_ ;
       /**
-       * <code>required double sFlow = 4;</code>
+       * <code>required float sFlow = 4;</code>
        *
        * <pre>
        * 标况流量
@@ -974,30 +974,30 @@ public final class GasMsg {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required double sFlow = 4;</code>
+       * <code>required float sFlow = 4;</code>
        *
        * <pre>
        * 标况流量
        * </pre>
        */
-      public double getSFlow() {
+      public float getSFlow() {
         return sFlow_;
       }
       /**
-       * <code>required double sFlow = 4;</code>
+       * <code>required float sFlow = 4;</code>
        *
        * <pre>
        * 标况流量
        * </pre>
        */
-      public Builder setSFlow(double value) {
+      public Builder setSFlow(float value) {
         bitField0_ |= 0x00000008;
         sFlow_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double sFlow = 4;</code>
+       * <code>required float sFlow = 4;</code>
        *
        * <pre>
        * 标况流量
@@ -1005,15 +1005,15 @@ public final class GasMsg {
        */
       public Builder clearSFlow() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        sFlow_ = 0D;
+        sFlow_ = 0F;
         onChanged();
         return this;
       }
 
-      // required double wFlow = 5;
-      private double wFlow_ ;
+      // required float wFlow = 5;
+      private float wFlow_ ;
       /**
-       * <code>required double wFlow = 5;</code>
+       * <code>required float wFlow = 5;</code>
        *
        * <pre>
        * 工作流量
@@ -1023,30 +1023,30 @@ public final class GasMsg {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required double wFlow = 5;</code>
+       * <code>required float wFlow = 5;</code>
        *
        * <pre>
        * 工作流量
        * </pre>
        */
-      public double getWFlow() {
+      public float getWFlow() {
         return wFlow_;
       }
       /**
-       * <code>required double wFlow = 5;</code>
+       * <code>required float wFlow = 5;</code>
        *
        * <pre>
        * 工作流量
        * </pre>
        */
-      public Builder setWFlow(double value) {
+      public Builder setWFlow(float value) {
         bitField0_ |= 0x00000010;
         wFlow_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double wFlow = 5;</code>
+       * <code>required float wFlow = 5;</code>
        *
        * <pre>
        * 工作流量
@@ -1054,15 +1054,15 @@ public final class GasMsg {
        */
       public Builder clearWFlow() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        wFlow_ = 0D;
+        wFlow_ = 0F;
         onChanged();
         return this;
       }
 
-      // required double aFlow = 6;
-      private double aFlow_ ;
+      // required float aFlow = 6;
+      private float aFlow_ ;
       /**
-       * <code>required double aFlow = 6;</code>
+       * <code>required float aFlow = 6;</code>
        *
        * <pre>
        * 总流量
@@ -1072,30 +1072,30 @@ public final class GasMsg {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required double aFlow = 6;</code>
+       * <code>required float aFlow = 6;</code>
        *
        * <pre>
        * 总流量
        * </pre>
        */
-      public double getAFlow() {
+      public float getAFlow() {
         return aFlow_;
       }
       /**
-       * <code>required double aFlow = 6;</code>
+       * <code>required float aFlow = 6;</code>
        *
        * <pre>
        * 总流量
        * </pre>
        */
-      public Builder setAFlow(double value) {
+      public Builder setAFlow(float value) {
         bitField0_ |= 0x00000020;
         aFlow_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double aFlow = 6;</code>
+       * <code>required float aFlow = 6;</code>
        *
        * <pre>
        * 总流量
@@ -1103,7 +1103,7 @@ public final class GasMsg {
        */
       public Builder clearAFlow() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        aFlow_ = 0D;
+        aFlow_ = 0F;
         onChanged();
         return this;
       }
@@ -1874,8 +1874,8 @@ public final class GasMsg {
   static {
     String[] descriptorData = {
       "\n\014GasMsg.proto\"r\n\007GasData\022\n\n\002id\030\001 \002(\005\022\020\n" +
-      "\010pressure\030\002 \002(\001\022\016\n\006temper\030\003 \002(\001\022\r\n\005sFlow" +
-      "\030\004 \002(\001\022\r\n\005wFlow\030\005 \002(\001\022\r\n\005aFlow\030\006 \002(\001\022\014\n\004" +
+      "\010pressure\030\002 \002(\002\022\016\n\006temper\030\003 \002(\002\022\r\n\005sFlow" +
+      "\030\004 \002(\002\022\r\n\005wFlow\030\005 \002(\002\022\r\n\005aFlow\030\006 \002(\002\022\014\n\004" +
       "time\030\007 \002(\003\"\'\n\nGasDataBox\022\031\n\007gasData\030\001 \003(" +
       "\0132\010.GasData"
     };

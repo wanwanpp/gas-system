@@ -13,7 +13,7 @@ public class WriteThread implements Runnable {
 
     public static List testString = new ArrayList(10001);
 
-    public static InfluxDB influxDB = InfluxDBFactory.connect("http://172.23.253.30:8086", "root", "root");
+    public static InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
 
     private static String dbName="batchInsert";
 

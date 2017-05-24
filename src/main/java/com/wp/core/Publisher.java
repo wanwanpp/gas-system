@@ -39,10 +39,13 @@ public class Publisher {
 
         int count = 0;
         long start = System.currentTimeMillis();
-        byte[] dataBytes = buildGasData.produceGasData();
-        System.out.println(dataBytes.length);
 
-        for (int i = 0; i < 100; i++) {
+        byte[] dataBytes = buildGasData.produceGasData();
+//        System.out.println(dataBytes.length);
+
+        for (int i = 0; i < 10; i++) {
+
+//            byte[] dataBytes = buildGasData.produceGasData();
             queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
             Thread.sleep(100);
             count++;
@@ -52,7 +55,7 @@ public class Publisher {
 
         connection.disconnect().await();
         System.out.println("used :" + (System.currentTimeMillis() - start));
-        Thread.sleep(600000);
+//        Thread.sleep(600000);
 
     }
 }

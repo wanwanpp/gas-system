@@ -65,6 +65,9 @@ public class Listener {
                 byte[] data = msg.toByteArray();
                 GasMsg.GasDataBox gasDataBox = buildGasData.consume(data);
                 System.out.println(gasDataBox.getGasDataList().size());
+                for (GasMsg.GasData gasData:gasDataBox.getGasDataList()){
+                    System.out.println(gasData.toString());
+                }
 //
 //                String body = msg.utf8().toString();
 //                System.out.println(body);
