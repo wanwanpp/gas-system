@@ -60,7 +60,7 @@ public class ApolloReceiver {
 
         consumersPool = Executors.newFixedThreadPool(getNumConsumers());
 
-        for (AtomicInteger i = new AtomicInteger(1); i.get() < getNumConsumers(); i.getAndIncrement()) {
+        for (AtomicInteger i = new AtomicInteger(1); i.get() <= getNumConsumers(); i.getAndIncrement()) {
             Consumer consumer = new Consumer("consumer " + i);
             consumer.connect();
             consumersPool.execute(consumer);
@@ -164,7 +164,6 @@ public class ApolloReceiver {
                     List<String> toDbList = new ArrayList<String>(100000);
 
                     String string = "";
-
                     for (GasMsg.GasData gasData : gasDataList) {
                         string = tableName +
                                 ",id=" + gasData.getId() + " " +
@@ -177,7 +176,9 @@ public class ApolloReceiver {
                         toDbList.add(string);
                     }
                     influxTemplate.write(toDbList);
+
                 }
+
             });
         }
     }

@@ -10,6 +10,12 @@ import java.util.Random;
  */
 public class BuildGasData {
 
+    /**
+     * 产生随机数据模拟
+     *
+     * @return
+     * @throws IOException
+     */
     public byte[] produceGasData() throws IOException {
 
         //随机数
@@ -37,14 +43,15 @@ public class BuildGasData {
         gasDataBox.writeTo(bos);
         byte[] bytes = bos.toByteArray();
 
-
         return bytes;
-//        //反序列化
-//        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-//        GasMsg.GasDataBox gasDataBox2 = GasMsg.GasDataBox.parseFrom(bis);
-
     }
 
+    /**
+     * 反序列化
+     *
+     * @param bytes
+     * @return
+     */
     public GasMsg.GasDataBox consume(byte[] bytes) {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         try {

@@ -1,13 +1,9 @@
 package com.wp.core;
 
 import com.wp.protobuf.BuildGasData;
-import org.fusesource.hawtbuf.UTF8Buffer;
-import org.fusesource.mqtt.client.Future;
 import org.fusesource.mqtt.client.FutureConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
-
-import java.util.LinkedList;
 
 /**
  * Created by 王萍 on 2017/5/22 0022.
@@ -18,41 +14,36 @@ public class Publisher {
 
         BuildGasData buildGasData = new BuildGasData();
 
+        //基本参数
         String user = "admin";
         String password = "password";
         String host = "localhost";
         int port = 61613;
-
-        //默认目的地为/topic/event
         final String destination = "/topic/event";
 
+        //配置MQTT对象
         MQTT mqtt = new MQTT();
         mqtt.setHost(host, port);
         mqtt.setUserName(user);
         mqtt.setPassword(password);
 
+        //获取Future连接
         FutureConnection connection = mqtt.futureConnection();
+        //连接队列服务器
         connection.connect().await();
 
-        final LinkedList<Future<Void>> queue = new LinkedList<Future<Void>>();
-        UTF8Buffer topic = new UTF8Buffer(destination);
-
-        int count = 0;
         long start = System.currentTimeMillis();
 
+        //获取模拟数据
         byte[] dataBytes = buildGasData.produceGasData();
-//        System.out.println(dataBytes.length);
 
         for (int i = 0; i < 10; i++) {
-
-//            byte[] dataBytes = buildGasData.produceGasData();
-            queue.add(connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true));
+            //发送数据
+            connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true);
             Thread.sleep(100);
-            count++;
         }
 
-        System.out.println("count is " + count);
-
+        //关闭连接
         connection.disconnect().await();
         System.out.println("used :" + (System.currentTimeMillis() - start));
 //        Thread.sleep(600000);
