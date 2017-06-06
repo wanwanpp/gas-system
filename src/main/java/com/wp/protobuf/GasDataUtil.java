@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by 王萍 on 2017/5/22 0022.
  */
-public class BuildGasData {
+public class GasDataUtil {
 
     /**
      * 产生随机数据模拟
@@ -24,7 +24,7 @@ public class BuildGasData {
         //构造数据容器
         GasMsg.GasDataBox.Builder boxBuilder = GasMsg.GasDataBox.newBuilder();
         GasMsg.GasData.Builder gasBuilder = null;
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 20000; i++) {
             gasBuilder = GasMsg.GasData.newBuilder();
             gasBuilder.setId(i);
             gasBuilder.setPressure(random.nextFloat() * 100);

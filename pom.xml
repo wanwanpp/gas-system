@@ -47,6 +47,27 @@
       <version>3.3.1</version>
     </dependency>
 
+    <!--&lt;!&ndash;hazelcast&ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>com.hazelcast</groupId>-->
+      <!--<artifactId>hazelcast</artifactId>-->
+      <!--<version>3.8.2</version>-->
+    <!--</dependency>-->
+
+      <!--&lt;!&ndash;hazelcast客户端&ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>com.hazelcast</groupId>-->
+      <!--<artifactId>hazelcast-client</artifactId>-->
+      <!--<version>3.8.2</version>-->
+    <!--</dependency>-->
+
+      <!--hazelcast所有包-->
+      <dependency>
+          <groupId>com.hazelcast</groupId>
+          <artifactId>hazelcast-all</artifactId>
+          <version>3.8.2</version>
+      </dependency>
+
 
   </dependencies>
 </project>

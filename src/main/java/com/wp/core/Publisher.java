@@ -1,6 +1,6 @@
 package com.wp.core;
 
-import com.wp.protobuf.BuildGasData;
+import com.wp.protobuf.GasDataUtil;
 import org.fusesource.mqtt.client.FutureConnection;
 import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.client.QoS;
@@ -12,7 +12,7 @@ public class Publisher {
 
     public static void main(String[] args) throws Exception {
 
-        BuildGasData buildGasData = new BuildGasData();
+        GasDataUtil gasDataUtil = new GasDataUtil();
 
         //基本参数
         String user = "admin";
@@ -35,12 +35,12 @@ public class Publisher {
         long start = System.currentTimeMillis();
 
         //获取模拟数据
-        byte[] dataBytes = buildGasData.produceGasData();
+        byte[] dataBytes = gasDataUtil.produceGasData();
 
         for (int i = 0; i < 10; i++) {
             //发送数据
             connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true);
-            Thread.sleep(100);
+            Thread.sleep(500);
         }
 
         //关闭连接

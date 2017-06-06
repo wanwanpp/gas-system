@@ -16,7 +16,7 @@
  */
 package com.wp.core;
 
-import com.wp.protobuf.BuildGasData;
+import com.wp.protobuf.GasDataUtil;
 import com.wp.protobuf.GasMsg;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
@@ -30,7 +30,7 @@ public class Listener {
 
     public static void main(String[] args) throws Exception {
 
-        final BuildGasData buildGasData = new BuildGasData();
+        final GasDataUtil gasDataUtil = new GasDataUtil();
 
         String user = "admin";
         String password = "password";
@@ -63,7 +63,7 @@ public class Listener {
 
             public void onPublish(UTF8Buffer topic, Buffer msg, Runnable ack) {
                 byte[] data = msg.toByteArray();
-                GasMsg.GasDataBox gasDataBox = buildGasData.consume(data);
+                GasMsg.GasDataBox gasDataBox = gasDataUtil.consume(data);
                 System.out.println(gasDataBox.getGasDataList().size());
                 for (GasMsg.GasData gasData:gasDataBox.getGasDataList()){
                     System.out.println(gasData.toString());
