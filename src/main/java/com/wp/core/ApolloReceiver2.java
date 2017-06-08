@@ -42,12 +42,9 @@ public class ApolloReceiver2 {
     }
 
     public ApolloReceiver2(String user, String password, String host, int port) throws URISyntaxException {
-
         mqtt.setHost(host, port);
         mqtt.setUserName(user);
         mqtt.setPassword(password);
-        mqtt.setClientId("haha");
-
     }
 
     public void start() {
@@ -68,7 +65,7 @@ public class ApolloReceiver2 {
 
             //这儿需要过一段时间后再创建新的consumer。
             try {
-                Thread.sleep(5000);
+                Thread.sleep(4000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -119,7 +116,7 @@ public class ApolloReceiver2 {
             connection.connect(new Callback<Void>() {
                 public void onSuccess(Void value) {
 
-                    Topic[] topics = {new Topic(destination, QoS.AT_LEAST_ONCE)};
+                    Topic[] topics = {new Topic(destination, QoS.EXACTLY_ONCE)};
 
                     connection.subscribe(topics, new Callback<byte[]>() {
                         public void onSuccess(byte[] qoses) {

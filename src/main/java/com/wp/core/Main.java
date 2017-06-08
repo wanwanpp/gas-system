@@ -5,8 +5,6 @@ package com.wp.core;
  */
 public class Main {
 
-
-
     public static void main(String[] args) throws Exception {
 
         ApolloReceiver receiver = new ApolloReceiver("admin", "password", "localhost", 61613);
@@ -15,9 +13,9 @@ public class Main {
         receiver.start();
 
         // Wait forever..
-        synchronized (Listener.class) {
+        synchronized (MqttListener.class) {
             while (true)
-                Listener.class.wait();
+                MqttListener.class.wait();
         }
     }
 }

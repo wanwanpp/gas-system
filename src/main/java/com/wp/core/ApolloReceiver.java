@@ -138,7 +138,7 @@ public class ApolloReceiver {
         });
     }
 
-//    receive关闭
+    //    receive关闭
     public void stop() {
         stopConsumers();
     }
