@@ -2,6 +2,7 @@ package com.wp;
 
 import com.wp.protobuf.GasDataUtil;
 import com.wp.websocket.WebSocketHandler;
+import com.wp.websocket.listener.MqttListener;
 import org.fusesource.mqtt.client.MQTT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -48,7 +49,12 @@ public class WebApp extends SpringBootServletInitializer implements WebSocketCon
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(WebApp.class, args);
+
+        SpringApplication application = new SpringApplication(WebApp.class);
+        //MqttListener为单例
+        application.addListeners(MqttListener.getInstance());
+        application.run(args);
+
     }
 
 

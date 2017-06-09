@@ -13,9 +13,9 @@ public class Main {
         receiver.start();
 
         // Wait forever..
-        synchronized (MqttListener.class) {
-            while (true)
-                MqttListener.class.wait();
-        }
+//        synchronized (MqttListener.class) {
+//            while (true)
+//                MqttListener.class.wait();
+//        }
     }
 }

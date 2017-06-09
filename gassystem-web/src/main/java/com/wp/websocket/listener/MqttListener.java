@@ -1,4 +1,4 @@
-package com.wp.core;
+package com.wp.websocket.listener;
 
 import com.wp.api.MqttConnectionCycle;
 import com.wp.protobuf.GasDataUtil;
@@ -6,10 +6,18 @@ import com.wp.protobuf.GasMsg;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
 import org.fusesource.mqtt.client.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.event.ApplicationPreparedEvent;
+import org.springframework.context.ApplicationListener;
 
 import java.net.URISyntaxException;
+import java.util.Observable;
 
-public class MqttListener implements MqttConnectionCycle {
+// TODO: 2017/6/9 0009 加入观察者模式
+public class MqttListener extends Observable implements MqttConnectionCycle, ApplicationListener<ApplicationPreparedEvent> {
+
+    private Logger logger = LoggerFactory.getLogger(MqttListener.class);
 
     final GasDataUtil gasDataUtil = new GasDataUtil();
 
@@ -19,13 +27,23 @@ public class MqttListener implements MqttConnectionCycle {
 
     private CallbackConnection connection;
 
-    public MqttListener() {
+    //    构造函数
+    private MqttListener() {
         config("admin", "password", "localhost", 61613);
     }
 
-    public MqttListener(String user, String password, String host, int port) {
-        config(user, password, host, port);
+    //    使用单例模式
+    private static class Hoder {
+        private static MqttListener singleListener = new MqttListener();
     }
+
+    public static MqttListener getInstance() {
+        return Hoder.singleListener;
+    }
+
+//    public MqttListener(String user, String password, String host, int port) {
+//        config(user, password, host, port);
+//    }
 
     public void config(String user, String password, String host, int port) {
         try {
@@ -64,7 +82,7 @@ public class MqttListener implements MqttConnectionCycle {
     }
 
     public void listener() {
-        connection.listener(new org.fusesource.mqtt.client.Listener() {
+        connection.listener(new Listener() {
 
             public void onConnected() {
             }
@@ -81,9 +99,7 @@ public class MqttListener implements MqttConnectionCycle {
                 byte[] data = msg.toByteArray();
                 GasMsg.GasDataBox gasDataBox = gasDataUtil.consume(data);
                 System.out.println(gasDataBox.getGasDataList().size());
-                for (GasMsg.GasData gasData : gasDataBox.getGasDataList()) {
-                    System.out.println(gasData.toString());
-                }
+
             }
         });
 
@@ -103,13 +119,15 @@ public class MqttListener implements MqttConnectionCycle {
         });
     }
 
-    public static void main(String[] args) throws Exception {
 
+    @Override
+    public void onApplicationEvent(ApplicationPreparedEvent applicationPreparedEvent) {
 
-        // Wait forever..
-        synchronized (MqttListener.class) {
-            while (true)
-                MqttListener.class.wait();
-        }
+        MqttListener mqttListener = getInstance();
+        logger.info("配置好mqttlistener");
+        mqttListener.connect();
+        logger.info("mqttlistener连接成功");
+        mqttListener.listener();
+        logger.info("mqttlistener开始监听");
     }
 }
