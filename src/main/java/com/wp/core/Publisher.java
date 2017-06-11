@@ -37,7 +37,7 @@ public class Publisher {
         //获取模拟数据
         byte[] dataBytes = gasDataUtil.produceGasData();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             //发送数据
             connection.publish(destination, dataBytes, QoS.AT_LEAST_ONCE, true);
             Thread.sleep(500);

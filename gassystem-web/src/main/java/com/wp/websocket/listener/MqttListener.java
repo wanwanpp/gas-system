@@ -1,8 +1,10 @@
 package com.wp.websocket.listener;
 
 import com.wp.api.MqttConnectionCycle;
+import com.wp.influxdb.InfluxTemplate;
 import com.wp.protobuf.GasDataUtil;
 import com.wp.protobuf.GasMsg;
+import com.wp.websocket.SocketHandler;
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
 import org.fusesource.mqtt.client.*;
@@ -10,11 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
-// TODO: 2017/6/9 0009 加入观察者模式
+// TODO: 2017/6/9 0009 加入观察者模式,无法加入观察者，因为SocketHandler是单例的Component
 public class MqttListener extends Observable implements MqttConnectionCycle, ApplicationListener<ApplicationPreparedEvent> {
 
     private Logger logger = LoggerFactory.getLogger(MqttListener.class);
@@ -26,6 +33,13 @@ public class MqttListener extends Observable implements MqttConnectionCycle, App
     private MQTT mqtt = new MQTT();
 
     private CallbackConnection connection;
+
+    //    @Autowired
+    private InfluxTemplate influxTemplate = new InfluxTemplate();
+
+    //influxdb数据库表名
+    private static String tableName = "gas";
+
 
     //    构造函数
     private MqttListener() {
@@ -98,8 +112,36 @@ public class MqttListener extends Observable implements MqttConnectionCycle, App
             public void onPublish(UTF8Buffer topic, Buffer msg, Runnable ack) {
                 byte[] data = msg.toByteArray();
                 GasMsg.GasDataBox gasDataBox = gasDataUtil.consume(data);
+                List<GasMsg.GasData> gasDataList = gasDataBox.getGasDataList();
                 System.out.println(gasDataBox.getGasDataList().size());
 
+                List<WebSocketSession> sessions = SocketHandler.sessions;
+                if (sessions.size() > 0) {
+                    for (WebSocketSession session : sessions) {
+                        try {
+                            session.sendMessage(new TextMessage(gasDataList.toString()));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                List<String> toDbList = new ArrayList<String>(100000);
+
+                String string = "";
+                for (GasMsg.GasData gasData : gasDataList) {
+                    string = tableName +
+                            ",id=" + gasData.getId() + " " +
+                            "pressure=" + gasData.getPressure() + "," +
+                            "temper=" + gasData.getTemper() + "," +
+                            "sFlow=" + gasData.getSFlow() + "," +
+                            "wFlow=" + gasData.getWFlow() + "," +
+                            "aFlow=" + gasData.getAFlow() + "," +
+                            "stime=" + gasData.getTime();//不能写成time，因为是Influxdb占用的字段
+                    toDbList.add(string);
+                }
+                //写入数据库
+                influxTemplate.write(toDbList);
             }
         });
 

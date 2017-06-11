@@ -1,15 +1,12 @@
 package com.wp;
 
-import com.wp.protobuf.GasDataUtil;
-import com.wp.websocket.WebSocketHandler;
+import com.wp.websocket.SocketHandler;
 import com.wp.websocket.listener.MqttListener;
-import org.fusesource.mqtt.client.MQTT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
@@ -25,12 +22,12 @@ public class WebApp extends SpringBootServletInitializer implements WebSocketCon
 
 
     @Autowired
-    private WebSocketHandler webSocketHandler;
+    private SocketHandler socketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
-        registry.addHandler(webSocketHandler, "websocket").withSockJS();
+        registry.addHandler(socketHandler, "websocket").withSockJS();
     }
 
     @Override
@@ -38,15 +35,20 @@ public class WebApp extends SpringBootServletInitializer implements WebSocketCon
         return application.sources(WebApp.class);
     }
 
-    @Bean
-    public GasDataUtil getGasDataUtil() {
-        return new GasDataUtil();
-    }
+//    @Bean
+//    public GasDataUtil getGasDataUtil() {
+//        return new GasDataUtil();
+//    }
 
-    @Bean
-    public MQTT getMqtt() {
-        return new MQTT();
-    }
+//    @Bean
+//    public InfluxTemplate getInfluxdbTemplate() {
+//        return new InfluxTemplate();
+//    }
+
+//    @Bean
+//    public MQTT getMqtt() {
+//        return new MQTT();
+//    }
 
     public static void main(String[] args) {
 

@@ -10,16 +10,21 @@ import java.util.List;
  */
 public class InfluxTemplate {
 
-    public InfluxDB influxDB = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
+    public InfluxDB influxDB = null;
 
     private String db = "gasData";
 
-    {
+//    {
+//        influxDB.createDatabase(db);
+//    }
+
+    public InfluxTemplate() {
+        influxDB = InfluxDBFactory.connect("http://localhost:8086", "root", "root");
         influxDB.createDatabase(db);
     }
 
-    public void write(List<String> list){
-        influxDB.write(db,"autogen", InfluxDB.ConsistencyLevel.ONE,list);
+    public void write(List<String> list) {
+        influxDB.write(db, "autogen", InfluxDB.ConsistencyLevel.ONE, list);
     }
 
 
